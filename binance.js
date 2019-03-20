@@ -213,8 +213,6 @@ async function doit() {
 
                     }
 
-                    las[symbol] = la;
-                    hbs[symbol] = hb;
                 }
             }
         }
