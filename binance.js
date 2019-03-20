@@ -185,7 +185,7 @@ async function doit() {
                         sp = sp.toFixed(filters[symbol].tickSize - 1)
                         buyQty = ((bals[symbol.substring(symbol.length - 3, symbol.length)] / (hb * 1.0001)).toFixed(filters[symbol].stepSize - 1));
                         let dontgo = false;
-                        let sellQty = parseFloat(bals[asset]).toFixed(filters[symbol].stepSize - 1)
+                        let sellQty = (parseFloat(bals[asset]) * 0.999).toFixed(filters[symbol].stepSize - 1)
                          if ((sellQty) < filters[symbol].minNotional) {
                             console.log('dontgo minnotional ' + symbol)
                             dontgo = true;
@@ -300,7 +300,7 @@ async function doit() {
                         let dontgo = false;
                         //console.log(buyQty)
                         //console.log(bp)
-                        let sellQty = parseFloat(bals[asset]).toFixed(filters[symbol].stepSize - 1)
+                        let sellQty = (parseFloat(bals[asset]) * 0.999).toFixed(filters[symbol].stepSize - 1)
                          if ((sellQty) < filters[symbol].minNotional) {
                             console.log('dontgo minnotional ' + symbol)
                             dontgo = true;
@@ -418,7 +418,7 @@ async function doit() {
                         bp = bp.toFixed(filters[symbol].tickSize - 1)
                         sp = (la * .9999)
                         sp = sp.toFixed(filters[symbol].tickSize - 1)
-                        buyQty = ((bals[symbol.substring(symbol.length - 3, symbol.length)] / (hb * 1.0001) / Object.keys(gos[g]).length).toFixed(filters[symbol].stepSize - 1));
+                        buyQty = ((bals[symbol.substring(symbol.length - 3, symbol.length)] * 0.9999 / (hb * 1.0001) / Object.keys(gos[g]).length).toFixed(filters[symbol].stepSize - 1));
                         //testing
                         //buyQty = ((bals[symbol.substring(symbol.length - 3, symbol.length)] / (hb * 1.0001)).toFixed(filters[symbol].stepSize - 1));
 
