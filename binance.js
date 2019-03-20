@@ -128,7 +128,7 @@ async function doit() {
             }))
             let hb = 0;
             let hbless = 0;
-            let haless = 0;
+            let laless = 0;
             for (var bid in book.bids) {
                 if (parseFloat(book.bids[bid].price) > hb) {
                     hbless = hb;
@@ -241,7 +241,7 @@ async function doit() {
             }))
             let hb = 0;
             let hbless = 0;
-            let haless = 0;
+            let laless = 0;
             for (var bid in book.bids) {
                 if (parseFloat(book.bids[bid].price) > hb) {
                     hbless = hb;
@@ -384,7 +384,7 @@ async function doit() {
                 console.log(buyQtys[symbol] + ' ; ' + bsover);
                 if (buyQtys[symbol] * targetOrderSizeMult < bsover || buyQtys[symbol] == undefined) {
                     hblesss[symbol] = hbless;
-                    halesss[symbol] = haless;
+                    lalesss[symbol] = laless;
                     if (symbol.substring(symbol.length - 4, symbol.length) == g) {
 
                         asset = symbol.substring(0, symbol.length - 4)
