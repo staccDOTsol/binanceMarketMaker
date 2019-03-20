@@ -104,7 +104,7 @@ async function doit() {
 
         }
     }
-    let donts = []
+    let dont = []
     for (var sym in ticks) {
 
         for (var g in gos) {
@@ -121,7 +121,7 @@ async function doit() {
     }
     for (var bal in bals) {
         let symbol = bal + 'BNB';
-        if (bals[bal] != 0 && !donts.includes(symbol)) {
+        if (bals[bal] != 0 && !dont.includes(symbol)) {
             let book = (await client.book({
                 symbol: symbol
             }))
