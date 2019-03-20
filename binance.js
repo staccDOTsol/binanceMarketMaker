@@ -120,6 +120,7 @@ async function doit() {
         bals[balances[b].asset] = balances[b].free
     }
     for (var bal in bals) {
+        if (!bases.includes(bal)){
         let symbol = bal + 'BNB';
         if (bals[bal] != 0 && !dont.includes(symbol)) {
             let book = (await client.book({
@@ -216,6 +217,7 @@ async function doit() {
                     hbs[symbol] = hb;
                 }
             }
+        }
             /*
 
              */
@@ -463,7 +465,7 @@ async function doit() {
 }
 setTimeout(function() {
     doit();
-}, 45000)
+}, 15000)
 let bals = {}
 
 function countDecimalPlaces(number) {
