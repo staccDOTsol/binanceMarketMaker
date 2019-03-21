@@ -242,25 +242,26 @@ async function doit() {
     for (var bal in bals) {
         if (!bases.includes(bal)){
         let symbol = bal + 'BNB';
-        if (bals[bal] != 0 && !dont.includes(symbol)) {
-            let book;
-            try {
-                book = (await client.book({
-                symbol: symbol
-            }))
-            } catch (err){
-                symbol = bal + 'BTC';
-                try {
-                book = (await client.book({
-                symbol: symbol
-            }))
-            } catch (err){
-                symbol = bal + 'ETH';
-                book = (await client.book({
-                symbol: symbol
-            }))
-            }
-            }
+        if (bals[bal] != 0) {
+                                        let book;
+                                        try {
+                                            book = (await client.book({
+                                                symbol: symbol
+                                            }))
+                                        } catch (err) {
+                                            symbol = bal + 'BTC';
+                                            try {
+                                                book = (await client.book({
+                                                    symbol: symbol
+                                                }))
+                                            } catch (err) {
+                                                symbol = bal + 'ETH';
+                                                book = (await client.book({
+                                                    symbol: symbol
+                                                }))
+                                            }
+                                        }
+                                    } if (!dont.includes(symbol)){
             let hb = 0;
             let hbless = 0;
             let laless = 0;
@@ -543,23 +544,27 @@ async function cancelAll() {
         for (var bal in bals) {
             if (!bases.includes(bal)) {
                 let symbol = bal + 'BNB';
-
-                if (bals[bal] != 0 && !dont.includes(symbol)) {
-                    try {
-                        book = (await client.book({
-                            symbol: symbol
-                        }))
-                    } catch (err) {
-                        symbol = bal + 'BTC';
-                        try {
-                            book = (await client.book({
-                                symbol: symbol
-                            }))
-                        } catch (err) {
-                            symbol = bal + 'ETH';
-                            book = (await client.book({
-                                symbol: symbol
-                            }))
+                let book;
+                if (bals[bal] != 0) {
+                                        let book;
+                                        try {
+                                            book = (await client.book({
+                                                symbol: symbol
+                                            }))
+                                        } catch (err) {
+                                            symbol = bal + 'BTC';
+                                            try {
+                                                book = (await client.book({
+                                                    symbol: symbol
+                                                }))
+                                            } catch (err) {
+                                                symbol = bal + 'ETH';
+                                                book = (await client.book({
+                                                    symbol: symbol
+                                                }))
+                                            }
+                                        }
+                                    } if (!dont.includes(symbol)){
                             let orders = (await client.openOrders({
                                 symbol: symbol,
                             }))
@@ -578,8 +583,6 @@ async function cancelAll() {
                     }
                 }
             }
-        }
-    }
     
                     cancelAll();
                     setInterval(function() {
