@@ -7,7 +7,7 @@ const client = Binance({
 let targetSpread = 1; // % of spread to minimally trade a pair
 let targetVolDiv = 3; // Divisor how much smaller than average volume for that base asset to trade a pair
 let targetVolMult = 3; // Multiplier how much larger than average volume for that base asset to trade a pair
-
+let spreads = {}
 let targetOrderSizeMult = 1.5;  
 
 let ticks = []
@@ -20,7 +20,8 @@ client.ws.allTickers(tickers => {
     ticks = []
     for (var t in tickers) {
         let spread = (100 * (1 - parseFloat(tickers[t].bestBid) / parseFloat(tickers[t].bestAsk)))
-        if (!ticks.includes(tickers[t].symbol) && spread > targetSpread) { //testing
+        if (!ticks.includes(tickers[t].symbol) && spread) { 
+        spreads[tickers[t].symbol] = spread;//testing
             tickVols[tickers[t].symbol] = (parseFloat(tickers[t].volumeQuote))
             if (tickers[t].symbol.substring(tickers[t].symbol.length - 4, tickers[t].symbol.length).includes('USD')) {
                 if (!bases.includes(tickers[t].symbol.substring(tickers[t].symbol.length - 4, tickers[t].symbol.length))) {
@@ -90,14 +91,14 @@ async function doit() {
         for (var t in tickVols) {
 
             if (t.substring(t.length - 3, t.length) == a) {
-                if (tickVols[t] > avgs[a] / targetVolDiv && tickVols[t] < avgs[a] * targetVolMult) {
+                if (tickVols[t] > avgs[a] / targetVolDiv && tickVols[t] < avgs[a] * targetVolMult  && spreads[t] > targetSpread) {
                     if (gos[a] == undefined) {
                         gos[a] = {}
                     }
                     gos[a][(t)] = tickVols[t];
                 }
             } else if (t.substring(t.length - 4, t.length) == a) {
-                if (tickVols[t] > avgs[a] / targetVolDiv && tickVols[t] < avgs[a] * targetVolMult) {
+                if (tickVols[t] > avgs[a] / targetVolDiv && tickVols[t] < avgs[a] * targetVolMult  && spreads[t] > targetSpread) {
                     if (gos[a] == undefined) {
                         gos[a] = {}
                     }
