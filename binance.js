@@ -242,10 +242,10 @@ async function doit() {
     }
     for (var bal in bals) {
                                         let book;
-        if (bal != 'BTC' && bal != 'ETH' && bal != 'BNB'){
+        if (bal != 'BTC' && bal != 'ETH' && bal != 'BNB' && bals[bal] != 0){
         if (!bases.includes(bal)){
         let symbol = bal + 'BNB';
-        if (bals[bal] != 0) {
+        if (true) {
                                         try {
                                             book = (await client.book({
                                                 symbol: symbol
@@ -572,10 +572,10 @@ async function cancelAll() {
         }
         for (var bal in bals) {
                 let book;
-            if (bal != 'BTC' && bal != 'ETH' && bal != 'BNB'){
+            if (bal != 'BTC' && bal != 'ETH' && bal != 'BNB' && bals[bal] != 0){
             if (!bases.includes(bal)) {
                 let symbol = bal + 'BNB';
-                if (bals[bal] != 0) {
+                if (true) {
                                         try {
                                             book = (await client.book({
                                                 symbol: symbol
