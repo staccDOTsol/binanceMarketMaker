@@ -25,7 +25,7 @@ I don't have enough personal funds available to run the bot, but I can get a goo
 'At the current time Binance rate limits are: 1200 requests per minute. 10 orders per second. 100,000 orders per 24hrs.'
 
 
-There are no limits for unfilled orders, and at most it'll make about 6x 20 or so pairs x 2 orders, 1 cancel and 1 re-port a minute, along with checking balance and getting order books so a total of about ~500 a minute - not close to 1200 :)
+There are no limits for unfilled orders, and at most it'll make about 6x 20 or so pairs x 2 orders, 1 cancel and 1 re-post a minute, along with checking balance and getting order books so a total of about ~500 a minute - not close to 1200 :)
 
 
 On that note I've only been trading one pair, averaging 42 orders an hour or ~1000 per day, again by about 20 pairs would be 20 000 orders per day - a bit shy of 100k.
