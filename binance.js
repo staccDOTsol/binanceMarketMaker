@@ -524,7 +524,67 @@ setTimeout(function() {
     doit();
 }, 15000)
 let bals = {}
+async function cancelAll() {
+        let dont = []
+        for (var sym in ticks) {
 
+            for (var g in gos) {
+                for (var symbol in gos[g]) {
+                    if (symbol == sym) {
+                        dont.push(symbol)
+                    }
+                }
+            }
+        }
+        balances = (await client.accountInfo()).balances
+        for (var b in balances) {
+            bals[balances[b].asset] = balances[b].free
+        }
+        for (var bal in bals) {
+            if (!bases.includes(bal)) {
+                let symbol = bal + 'BNB';
+
+                if (bals[bal] != 0 && !dont.includes(symbol)) {
+                    try {
+                        book = (await client.book({
+                            symbol: symbol
+                        }))
+                    } catch (err) {
+                        symbol = bal + 'BTC';
+                        try {
+                            book = (await client.book({
+                                symbol: symbol
+                            }))
+                        } catch (err) {
+                            symbol = bal + 'ETH';
+                            book = (await client.book({
+                                symbol: symbol
+                            }))
+                            let orders = (await client.openOrders({
+                                symbol: symbol,
+                            }))
+
+                            for (var o in orders) {
+                                console.log(orders[o])
+                                console.log('cancel')
+                                console.log(await client.cancelOrder({
+                                    symbol: symbol,
+                                    orderId: orders[o].orderId,
+                                }))
+
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+                    cancelAll();
+                    setInterval(function() {
+                        cancelAll();
+                    }, 60 * 1000 * 4)
 function countDecimalPlaces(number) {
     var str = "" + number;
     if (str == '1e-7') {
