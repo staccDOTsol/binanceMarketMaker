@@ -80,7 +80,7 @@ async function doit() {
     }
     let balances = (await client.accountInfo()).balances
     for (var b in balances) {
-        bals[balances[b].asset] = balances[b].free
+        bals[balances[b].asset] = parseFloat(balances[b].free)
     }
     let gos = {}
     let avgs = {}
@@ -153,7 +153,7 @@ async function doit() {
                 }
                 balances = (await client.accountInfo()).balances
                 for (var b in balances) {
-                    bals[balances[b].asset] = balances[b].free
+                    bals[balances[b].asset] = parseFloat(balances[b].free)
                 }
                 if (symbol.substring(symbol.length - 4, symbol.length) == g) {
 
@@ -238,14 +238,14 @@ async function doit() {
     }
     let balances = (await client.accountInfo()).balances
     for (var b in balances) {
-        bals[balances[b].asset] = balances[b].free
+        bals[balances[b].asset] = parseFloat(balances[b].free)
     }
     for (var bal in bals) {
+                                        let book;
         if (bal != 'BTC' && bal != 'ETH' && bal != 'BNB'){
         if (!bases.includes(bal)){
         let symbol = bal + 'BNB';
         if (bals[bal] != 0) {
-                                        let book;
                                         try {
                                             book = (await client.book({
                                                 symbol: symbol
@@ -301,7 +301,7 @@ async function doit() {
                 }
              balances = (await client.accountInfo()).balances
                 for (var b in balances) {
-                    bals[balances[b].asset] = balances[b].free
+                    bals[balances[b].asset] = parseFloat(balances[b].free)
                 }
                 if (symbol.substring(symbol.length - 4, symbol.length) == g) {
 
@@ -443,7 +443,7 @@ async function doit() {
                     }
                     balances = (await client.accountInfo()).balances
                     for (var b in balances) {
-                        bals[balances[b].asset] = balances[b].free
+                        bals[balances[b].asset] = parseFloat(balances[b].free)
                     }
                     if (lala == 0) {
                         //console.log(precisions[symbol]);
@@ -568,15 +568,14 @@ async function cancelAll() {
         }
         balances = (await client.accountInfo()).balances
         for (var b in balances) {
-            bals[balances[b].asset] = balances[b].free
+            bals[balances[b].asset] = parseFloat(balances[b].free)
         }
         for (var bal in bals) {
+                let book;
             if (bal != 'BTC' && bal != 'ETH' && bal != 'BNB'){
             if (!bases.includes(bal)) {
                 let symbol = bal + 'BNB';
-                let book;
                 if (bals[bal] != 0) {
-                                        let book;
                                         try {
                                             book = (await client.book({
                                                 symbol: symbol
