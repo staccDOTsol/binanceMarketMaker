@@ -8,6 +8,7 @@ const client = Binance({
 let targetSpread = 0.55;
 let targetVolDiv = 5;
 let targetVolMult = 200;
+let maxOrder = 1500;
 
 const express = require('express');
 const app = express();
@@ -672,8 +673,8 @@ async function doit() {
                                     console.log('dontgo buy = ask');
                                     dontgo = true;
                                 }*/
-                                if (buyQty > 1500) {
-                                    console.log('dontgo minOrder ' + symbol)
+                                if (buyQty > maxOrder) {
+                                    console.log('dontgo maxOrder ' + symbol)
                                     dontgo = true;
                                 }
                                 if ((buyQty * hb * 1.0001) < filters[symbol].minNotional) {

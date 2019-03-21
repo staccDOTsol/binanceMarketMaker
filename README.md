@@ -19,7 +19,7 @@ You'll want to have about $20 per market pair it's looking to trade, in the base
 If for whatever reason a market pair leaves the universe scope of considered pairs, it will continue selling that asset with the same sell logic (on the quoteAsset+BNB market), while pausing buying it.
 
 
-I don't have enough personal funds available to run the bot, but I can get a good amount of income if I share it and people use my ref link. targetOrderSizeMult exists so that people can compete using the same bot on the same markets without it just outbidding the other bot constantly, as you can set a % of your order size to ignore when there's a bid or ask better than yours. When the volume that beats your price is higher than the order size * this multiplier, it'll re-enter the market.
+I don't have enough personal funds available to run the bot, but I can get a good amount of income if I share it and people use my ref link. targetOrderSizeMult exists so that people can compete using the same bot on the same markets without it just outbidding the other bot constantly, as you can set a % of your order size to ignore when there's a bid or ask better than yours. When the volume that beats your price is higher than the order size * this multiplier, it'll re-enter the market. maxOrder is the maximum # individual units to buy (to avoid sh#tcoins).
 
 
 'At the current time Binance rate limits are: 1200 requests per minute. 10 orders per second. 100,000 orders per 24hrs.'
@@ -41,7 +41,7 @@ To use:
 2. Place your Binance API key and secret in binance.js 
 
 
-3. Optionally change the targetSpread, targetVolDiv, targetVolMult, targetOrderSizeMult
+3. Optionally change the targetSpread, targetVolDiv, targetVolMult, targetOrderSizeMult, maxOrder
 
 
 4. Install NPM and Node
