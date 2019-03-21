@@ -22,6 +22,16 @@ If for whatever reason a market pair leaves the universe scope of considered pai
 I don't have enough personal funds available to run the bot, but I can get a good amount of income if I share it and people use my ref link. targetOrderSizeMult exists so that people can compete using the same bot on the same markets without it just outbidding the other bot constantly, as you can set a % of your order size to ignore when there's a bid or ask better than yours. When the volume that beats your price is higher than the order size * this multiplier, it'll re-enter the market.
 
 
+'At the current time Binance rate limits are: 1200 requests per minute. 10 orders per second. 100,000 orders per 24hrs.'
+
+
+There are no limits for unfilled orders, and at most it'll make about 6x 20 or so pairs x 2 orders, 1 cancel and 1 re-port a minute, along with checking balance and getting order books so a total of about ~500 a minute - not close to 1200 :)
+
+
+On that note I've only been trading one pair, averaging 42 orders an hour or ~1000 per day, again by about 20 pairs would be 20 000 orders per day - a bit shy of 100k.
+
+
+
 To use:
 
 
