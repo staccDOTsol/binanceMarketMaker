@@ -187,7 +187,7 @@ async function doit() {
                             console.log('dontgo minqty ' + symbol)
                             dontgo = true;
                         }
-                        if (dontgo == false) {
+                        if (dontgo == false && buyQty > 0.00000001) {
 
                             //lala++;
                             try {
