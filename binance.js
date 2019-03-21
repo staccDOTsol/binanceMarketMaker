@@ -56,6 +56,7 @@ askOrders = {}
 bidOrders = {}
 let count = 1;
 let lala = 0;
+let selling = {}
 let precisions = {}
 let filters = {}
 async function doit() {
@@ -145,7 +146,8 @@ async function doit() {
                 }
             }
             //console.log(symbol + ' la: ' + la + ' hb: ' + hb)
-            if ((hblesss[symbol] != hbless || lalesss[symbol] != laless) || (las[symbol] != la && hbs[symbol] != hb)) {
+            if ((selling[symbol] == false) || ((hblesss[symbol] != hbless || lalesss[symbol] != laless) || (las[symbol] != la && hbs[symbol] != hb)) ){
+                selling[symbol] = true;
                 hblesss[symbol] = hbless
                 lalesss[symbol] = laless
                 let orders = (await client.openOrders({
@@ -444,6 +446,7 @@ async function doit() {
                                 buyQtys[symbol] = buyQty;
                                 aorders[symbol] = la;
                                 borders[symbol] = hb;
+                                selling[symbol] = true;
                                 console.log(await client.order({
                                     symbol: symbol,
                                     side: 'BUY',
