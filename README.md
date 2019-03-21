@@ -50,7 +50,7 @@ To use:
 5. Clone this repo, cd into directory
 
 
-6. Run npm i binance-api-node
+6. Run npm i binance-api-node express request ejs 
 
 
 7. Run node binance.js
