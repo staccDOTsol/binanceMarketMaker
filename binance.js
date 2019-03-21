@@ -177,7 +177,7 @@ async function doit() {
                         let dontgo = false;
                         //console.log(buyQty)
                         //console.log(bp)
-                        let sellQty = (parseFloat(bals[asset]) * 0.98).toFixed(filters[symbol].stepSize - 1)
+                        let sellQty = (parseFloat(bals[asset]) * 0.995).toFixed(filters[symbol].stepSize - 1)
                          if ((sellQty) < filters[symbol].minNotional) {
                             console.log('dontgo minnotional ' + symbol)
                             dontgo = true;
@@ -321,13 +321,13 @@ async function doit() {
                         sp = sp.toFixed(filters[symbol].tickSize - 1)
                         buyQty = ((bals[symbol.substring(symbol.length - 3, symbol.length)] / (hb * 1.0001)).toFixed(filters[symbol].stepSize - 1));
                         let dontgo = false;
-                        let sellQty = (parseFloat(bals[asset]) * 0.98).toFixed(filters[symbol].stepSize - 1)
+                        let sellQty = (parseFloat(bals[asset]) * 0.995).toFixed(filters[symbol].stepSize - 1)
                          
-                        
-                        if (hb == sp){
+                        /*
+                        if (hb == bp){
                             console.log('dontgo buy = ask');
                             dontgo = true;
-                        }
+                        }*/
                          if ((sellQty) < filters[symbol].minNotional) {
                             console.log('dontgo minnotional ' + symbol)
                             dontgo = true;
