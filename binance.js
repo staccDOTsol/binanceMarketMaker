@@ -40,22 +40,19 @@ app.post('/', (req, res) => {
 let total = 0;
 async function doPost(req, res) {
     console.log(total)
-    total = 0;
     let bals2 = {}
     balances = (await client.accountInfo()).balances
     for (var b in balances) {
         bals2[balances[b].asset] = parseFloat(balances[b].free) + parseFloat(balances[b].locked)
     }
+    total = 0;
     //console.log(bals2)
     for (var bal in bals2) {
 
         for (var base in bases) {
             if (bal == bases[base]) {
                 if (btcs[bal] > 0.00001) {
-                    console.log(bal)
-                    console.log(parseFloat(btcs[bal]))
-                    console.log(parseFloat(bals2[bal]))
-                    console.log(parseFloat(btcs[bal]) * parseFloat(bals2[bal]))
+
                     total += parseFloat(btcs[bal]) * parseFloat(bals2[bal])
                 }
             }
@@ -65,7 +62,6 @@ async function doPost(req, res) {
             if (b == bal) {
                 if (bals2[b] != 0 && !bases.includes(bal)) {
                     // console.log(parseFloat(bals2[bal]))
-                    console.log(bals2[bal])
                     total += parseFloat(bals2[bal]) * parseFloat(btcs[bal] * btcs['BTC'])
                 }
             }
