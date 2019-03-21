@@ -60,11 +60,6 @@ let selling = {}
 let precisions = {}
 let filters = {}
 async function doit() {
-    
-    console.log(count * 1 + ' intervals')
-    setTimeout(function() {
-        doit();
-    }, 60000)
     let notabuys = []
     try {
     let exchange = (await client.exchangeInfo())
@@ -519,6 +514,10 @@ async function doit() {
         }
     }
 
+    console.log(count * 1 + ' intervals')
+    setTimeout(function() {
+        doit();
+    }, 60000)
     count++;
 } catch(err){
     setTimeout(function() {
