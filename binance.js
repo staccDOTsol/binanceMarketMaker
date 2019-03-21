@@ -190,6 +190,11 @@ async function doit() {
                         buyQty = ((bals[symbol.substring(symbol.length - 3, symbol.length)] / (hb * 1.0001)).toFixed(filters[symbol].stepSize - 1));
                         let dontgo = false;
                         let sellQty = (parseFloat(bals[asset]) * 0.999).toFixed(filters[symbol].stepSize - 1)
+                         
+                        if (hb == bp){
+                            console.log('dontgo buy = bid');
+                            dontgo = true;
+                        }
                          if ((sellQty) < filters[symbol].minNotional) {
                             console.log('dontgo minnotional ' + symbol)
                             dontgo = true;
