@@ -134,7 +134,7 @@ async function doit() {
                 }
             }
             //console.log(symbol + ' la: ' + la + ' hb: ' + hb)
-            if ((hblesss[symbol] != hbless || lalesss[symbol] != laless) || (las[symbol] != la && hbs[symbol] != hb)) {
+            if (symbol != 'BNBUSDS' && (hblesss[symbol] != hbless || lalesss[symbol] != laless) || (las[symbol] != la && hbs[symbol] != hb)) {
                 hblesss[symbol] = hbless
                 lalesss[symbol] = laless
                 let orders = (await client.openOrders({
@@ -281,7 +281,7 @@ async function doit() {
                 }
             }
             //console.log(symbol + ' la: ' + la + ' hb: ' + hb)
-            if ((selling[symbol] == false) || ((hblesss[symbol] != hbless || lalesss[symbol] != laless) || (las[symbol] != la && hbs[symbol] != hb)) ){
+            if (symbol != 'BNBUSDS' && (selling[symbol] == false) || ((hblesss[symbol] != hbless || lalesss[symbol] != laless) || (las[symbol] != la && hbs[symbol] != hb)) ){
                 selling[symbol] = true;
                 hblesss[symbol] = hbless
                 lalesss[symbol] = laless
@@ -415,7 +415,7 @@ async function doit() {
 
             console.log(symbol + ' la: ' + la + ' hb: ' + hb)
             console.log(aorders[symbol])
-            if (!notabuys.includes(symbol) && ((hblesss[symbol] != hbless || lalesss[symbol] != laless) || ((las[symbol] != la && hbs[symbol] != hb) && (aorders[symbol] != la && borders[symbol] != hb)))) {
+            if (symbol != 'BNBUSDS' && !notabuys.includes(symbol) && ((hblesss[symbol] != hbless || lalesss[symbol] != laless) || ((las[symbol] != la && hbs[symbol] != hb) && (aorders[symbol] != la && borders[symbol] != hb)))) {
                 console.log(buyQtys[symbol] + ' ; ' + bsover);
                 if (buyQtys[symbol] * targetOrderSizeMult < bsover || buyQtys[symbol] == undefined) {
                     hblesss[symbol] = hbless;
