@@ -17,7 +17,6 @@ let cs = {}
 let tickVols = {}
 
 client.ws.allTickers(tickers => {
-    ticks = []
     for (var t in tickers) {
         let spread = (100 * (1 - parseFloat(tickers[t].bestBid) / parseFloat(tickers[t].bestAsk)))
         if (!ticks.includes(tickers[t].symbol) && spread) { 
