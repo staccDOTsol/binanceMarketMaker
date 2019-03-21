@@ -4,7 +4,7 @@ const client = Binance({
     apiSecret: ''
 })
 
-let targetSpread = 0.6; // % of spread to minimally trade a pair
+let targetSpread = 1; // % of spread to minimally trade a pair
 let targetVolDiv = 3; // Divisor how much smaller than average volume for that base asset to trade a pair
 let targetVolMult = 200; // Multiplier how much larger than average volume for that base asset to trade a pair
 let spreads = {}
@@ -223,7 +223,7 @@ async function doit() {
             //	}
         }
     }
-    
+
     let dont = []
     for (var sym in ticks) {
 
@@ -249,13 +249,13 @@ async function doit() {
                 symbol: symbol
             }))
             } catch (err){
-                symbol = bal + 'ETH';
+                symbol = bal + 'BTC';
                 try {
                 book = (await client.book({
                 symbol: symbol
             }))
             } catch (err){
-                symbol = bal + 'BTC';
+                symbol = bal + 'ETH';
                 book = (await client.book({
                 symbol: symbol
             }))
