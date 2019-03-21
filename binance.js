@@ -69,7 +69,7 @@ async function doPost(req, res) {
             }
         }
     }
-if (totalbefore == 0 || totalbefore / total2 < 1.2 ||  totalbefore / total2 > 0.8){ 
+if (totalbefore == 0 || totalbefore / total2 > 1.2 ||  totalbefore / total2 < 0.8){ 
     if (req.query.name) {
         res.json({
             total: total2
