@@ -88,25 +88,27 @@ async function doit() {
         avgs[v] = vols[v] / cs[v];
     }
     for (var a in avgs) {
-        for (var t in tickVols) {
+        if (a != 'USDS'){
+                                for (var t in tickVols) {
 
-            if (t.substring(t.length - 3, t.length) == a) {
-                if (tickVols[t] > avgs[a] / targetVolDiv && tickVols[t] < avgs[a] * targetVolMult  && spreads[t] > targetSpread) {
-                    if (gos[a] == undefined) {
-                        gos[a] = {}
-                    }
-                    gos[a][(t)] = tickVols[t];
-                }
-            } else if (t.substring(t.length - 4, t.length) == a) {
-                if (tickVols[t] > avgs[a] / targetVolDiv && tickVols[t] < avgs[a] * targetVolMult  && spreads[t] > targetSpread) {
-                    if (gos[a] == undefined) {
-                        gos[a] = {}
-                    }
-                    gos[a][(t)] = tickVols[t];
-                }
-            }
+                                    if (t.substring(t.length - 3, t.length) == a) {
+                                        if (tickVols[t] > avgs[a] / targetVolDiv && tickVols[t] < avgs[a] * targetVolMult && spreads[t] > targetSpread) {
+                                            if (gos[a] == undefined) {
+                                                gos[a] = {}
+                                            }
+                                            gos[a][(t)] = tickVols[t];
+                                        }
+                                    } else if (t.substring(t.length - 4, t.length) == a) {
+                                        if (tickVols[t] > avgs[a] / targetVolDiv && tickVols[t] < avgs[a] * targetVolMult && spreads[t] > targetSpread) {
+                                            if (gos[a] == undefined) {
+                                                gos[a] = {}
+                                            }
+                                            gos[a][(t)] = tickVols[t];
+                                        }
+                                    }
 
-        }
+                                }
+                            }
     }
     //  }
     for (var g in gos) {
@@ -536,6 +538,7 @@ async function cancelAll() {
                                 avgs[v] = vols[v] / cs[v];
                             }
                             for (var a in avgs) {
+                                if (a != 'USDS'){
                                 for (var t in tickVols) {
 
                                     if (t.substring(t.length - 3, t.length) == a) {
@@ -555,6 +558,7 @@ async function cancelAll() {
                                     }
 
                                 }
+                            }
                             }
         let dont = []
         for (var sym in ticks) {
@@ -615,7 +619,7 @@ async function cancelAll() {
             }
         } catch (err){
             console.log(err);
-            
+
             }
     
                     cancelAll();
