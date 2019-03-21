@@ -529,6 +529,7 @@ setTimeout(function() {
 }, 15000)
 let bals = {}
 async function cancelAll() {
+    try {
     let gos = {}
                             let avgs = {}
                             for (var v in vols) {
@@ -612,12 +613,16 @@ async function cancelAll() {
                     }
                 }
             }
+        } catch (err){
+            console.log(err);
+            
             }
     
                     cancelAll();
                     setInterval(function() {
                         cancelAll();
                     }, 60 * 1000 * 4)
+        }
 function countDecimalPlaces(number) {
     var str = "" + number;
     if (str == '1e-7') {
