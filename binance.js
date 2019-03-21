@@ -242,7 +242,7 @@ async function doit() {
     }
     for (var bal in bals) {
                                         let book;
-        if (bal != 'BTC' && bal != 'ETH' && bal != 'BNB' && bals[bal] != 0){
+        if (bal != 'BTC'  && bal != 'USDS'&& bal != 'ETH' && bal != 'BNB' && bals[bal] != 0){
         if (!bases.includes(bal)){
         let symbol = bal + 'BNB';
         if (true) {
@@ -573,7 +573,7 @@ async function cancelAll() {
         }
         for (var bal in bals) {
                 let book;
-            if (bal != 'BTC' && bal != 'ETH' && bal != 'BNB' && bals[bal] != 0){
+            if (bal != 'BTC' && bal != 'USDS' && bal != 'ETH' && bal != 'BNB' && bals[bal] != 0){
             if (!bases.includes(bal)) {
                 let symbol = bal + 'BNB';
                 if (true) {
