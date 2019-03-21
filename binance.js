@@ -483,6 +483,9 @@ async function doit() {
     }, 60000)
     count++;
 } catch(err){
+    setTimeout(function() {
+        doit();
+    }, 60000)
     console.log(err);
 }
 }
