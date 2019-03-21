@@ -111,6 +111,7 @@ async function doit() {
     //  }
     for (var g in gos) {
         for (var symbol in gos[g]) {
+
             //testing
             //if (symbol == "GNTBNB"){
             let book = (await client.book({
@@ -240,6 +241,7 @@ async function doit() {
         bals[balances[b].asset] = balances[b].free
     }
     for (var bal in bals) {
+        if (bal != 'BTC' && bal != 'ETH' && bal != 'BNB'){
         if (!bases.includes(bal)){
         let symbol = bal + 'BNB';
         if (bals[bal] != 0) {
@@ -373,6 +375,7 @@ async function doit() {
                 }
             }
         }
+    }
             /*
 
              */
@@ -542,6 +545,7 @@ async function cancelAll() {
             bals[balances[b].asset] = balances[b].free
         }
         for (var bal in bals) {
+            if (bal != 'BTC' && bal != 'ETH' && bal != 'BNB'){
             if (!bases.includes(bal)) {
                 let symbol = bal + 'BNB';
                 let book;
@@ -582,6 +586,7 @@ async function cancelAll() {
                         }
                     }
                 }
+            }
             }
     
                     cancelAll();
