@@ -126,19 +126,20 @@ async function doit() {
         if (!bases.includes(bal)){
         let symbol = bal + 'BNB';
         if (bals[bal] != 0 && !dont.includes(symbol)) {
+            let book;
             try {
-                let book = (await client.book({
+                book = (await client.book({
                 symbol: symbol
             }))
             } catch (err){
                 symbol = bal + 'ETH';
                 try {
-                let book = (await client.book({
+                book = (await client.book({
                 symbol: symbol
             }))
             } catch (err){
                 symbol = bal + 'BTC';
-                let book = (await client.book({
+                book = (await client.book({
                 symbol: symbol
             }))
             }
