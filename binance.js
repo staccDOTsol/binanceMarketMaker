@@ -6,7 +6,7 @@ const client = Binance({
 
 let targetSpread = 1; // % of spread to minimally trade a pair
 let targetVolDiv = 3; // Divisor how much smaller than average volume for that base asset to trade a pair
-let targetVolMult = 3; // Multiplier how much larger than average volume for that base asset to trade a pair
+let targetVolMult = 200; // Multiplier how much larger than average volume for that base asset to trade a pair
 let spreads = {}
 let targetOrderSizeMult = 1.5;  
 
@@ -191,8 +191,9 @@ async function doit() {
                         let dontgo = false;
                         let sellQty = (parseFloat(bals[asset]) * 0.999).toFixed(filters[symbol].stepSize - 1)
                          
-                        if (hb == bp){
-                            console.log('dontgo buy = bid');
+                        
+                        if (hb == sp){
+                            console.log('dontgo buy = ask');
                             dontgo = true;
                         }
                          if ((sellQty) < filters[symbol].minNotional) {
