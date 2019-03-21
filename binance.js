@@ -480,7 +480,7 @@ async function doit() {
     console.log(count * 1 + ' intervals')
     setTimeout(function() {
         doit();
-    }, 10000)
+    }, 60000)
     count++;
 } catch(err){
     console.log(err);
