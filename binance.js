@@ -38,6 +38,7 @@ app.post('/', (req, res) => {
 
 })
 let total2 = 0;
+let totalbefore;
 async function doPost(req, res) {
     console.log(total2)
     let bals2 = {}
@@ -45,6 +46,7 @@ async function doPost(req, res) {
     for (var b in balances) {
         bals2[balances[b].asset] = parseFloat(balances[b].free) + parseFloat(balances[b].locked)
     }
+    totalbefore = total2;
     total2 = 0;
     //console.log(bals2)
     for (var bal in bals2) {
@@ -67,7 +69,7 @@ async function doPost(req, res) {
             }
         }
     }
-
+if (totalbefore == 0 || totalbefore / total2 < 1.2 ||  totalbefore / total2 > 0.8){ 
     if (req.query.name) {
         res.json({
             total: total2
@@ -82,6 +84,7 @@ async function doPost(req, res) {
             trades: []
         })
     }
+}
 }
 let ticks = []
 let bases = []
