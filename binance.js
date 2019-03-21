@@ -60,6 +60,7 @@ let selling = {}
 let precisions = {}
 let filters = {}
 async function doit() {
+    let notabuys = []
     try {
     let exchange = (await client.exchangeInfo())
     for (var symbol in exchange.symbols) {
@@ -232,6 +233,10 @@ async function doit() {
 				  quantity: buyQty,
 				  price: bp,
 				})) */
+                
+                    las[symbol] = la;
+                    hbs[symbol] = hb;
+                notabuys.push(symbol)
                                 console.log(await client.order({
                                     symbol: symbol,
                                     side: 'SELL',
@@ -405,7 +410,7 @@ async function doit() {
 
             console.log(symbol + ' la: ' + la + ' hb: ' + hb)
             console.log(aorders[symbol])
-            if ((hblesss[symbol] != hbless || lalesss[symbol] != laless) || ((las[symbol] != la && hbs[symbol] != hb) && (aorders[symbol] != la && borders[symbol] != hb))) {
+            if (!notabuys.includes(symbol) && ((hblesss[symbol] != hbless || lalesss[symbol] != laless) || ((las[symbol] != la && hbs[symbol] != hb) && (aorders[symbol] != la && borders[symbol] != hb)))) {
                 console.log(buyQtys[symbol] + ' ; ' + bsover);
                 if (buyQtys[symbol] * targetOrderSizeMult < bsover || buyQtys[symbol] == undefined) {
                     hblesss[symbol] = hbless;
