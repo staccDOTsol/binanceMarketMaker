@@ -200,25 +200,33 @@
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
 x
-<div id="container" style="height: 800px; min-width: 310px"></div><!--
+<div id="container" style="height: 800px; min-width: 310px"></div>
+<div id="container3" style="height: 800px; min-width: 310px"></div>
+<div id="container2" style="height: 800px; min-width: 310px"></div><!--
 <div id="chartdiv" style="height: 400px; min-width: 310px"></div>-->
 
 <script>
 
     var prices = [];
     var rois = [];
-	var lasks = []; 
+    var lasks = []; 
     $(document).ready(function() {
         console.log("ready!");
-		var total = []
+        var total = []
+        var bnb = []
+        var btc = []
         setInterval(function() {
             //chart = Highcharts.stockChart('container', options);
             $.getJSON('http://localhost:8080/update?name=2', function(jsondata) {
                 console.log(jsondata);
-				console.log(new Date().getTime());
-				var d = new Date().getTime();
-				total.push([d, jsondata.total]);
-				chart.series[0].setData(total);
+                console.log(new Date().getTime());
+                var d = new Date().getTime();
+                total.push([d, jsondata.total]);
+                btc.push([d, jsondata.btc])
+                bnb.push([d, jsondata.bnb])
+                chart2.series[0].setData(btc);
+                chart3.series[0].setData(bnb);
+                chart.series[0].setData(total);
                // chart = Highcharts.stockChart('container', options);
             });
         }, 4000);
@@ -314,16 +322,175 @@ x
             split: true
         },
         series: [{
-                name: 'total',
+                name: 'usd total',
                 data: trade,
                 color: '#00FF00'
             }
         ]
     }
-			
+            
+
+    var options2 = {
+
+
+
+        rangeSelector: {
+            buttons: [{
+                count: 1,
+                type: 'minute',
+                text: '1m'
+            }, {
+                count: 5,
+                type: 'minute',
+                text: '5m'
+            }, {
+                count: 10,
+                type: 'minute',
+                text: '10m'
+            }, {
+                count: 30,
+                type: 'minute',
+                text: '30m'
+            }, {
+                count: 1,
+                type: 'hour',
+                text: '1h'
+            }, {
+                type: 'all',
+                text: 'All'
+            }],
+            inputEnabled: false,
+            selected: 0
+        },
+
+
+        title: {
+            text: '<%- name %>'
+        },
+
+
+        yAxis: [{
+            labels: {
+                align: 'right',
+                x: -3
+            },
+            title: {
+                text: 'Price'
+            },
+            height: '60%',
+            lineWidth: 2,
+            resize: {
+                enabled: true
+            }
+        }, {
+            labels: {
+                align: 'right',
+                x: -3
+            },
+            title: {
+                text: 'Volume'
+            },
+            top: '65%',
+            height: '35%',
+            offset: 0,
+            lineWidth: 2
+        }],
+
+        tooltip: {
+            split: true
+        },
+        series: [{
+                name: 'btc total',
+                data: trade,
+                color: '#00FF00'
+            }
+        ]
+    }
+
+
+
+    var options3 = {
+
+
+
+        rangeSelector: {
+            buttons: [{
+                count: 1,
+                type: 'minute',
+                text: '1m'
+            }, {
+                count: 5,
+                type: 'minute',
+                text: '5m'
+            }, {
+                count: 10,
+                type: 'minute',
+                text: '10m'
+            }, {
+                count: 30,
+                type: 'minute',
+                text: '30m'
+            }, {
+                count: 1,
+                type: 'hour',
+                text: '1h'
+            }, {
+                type: 'all',
+                text: 'All'
+            }],
+            inputEnabled: false,
+            selected: 0
+        },
+
+
+        title: {
+            text: '<%- name %>'
+        },
+
+
+        yAxis: [{
+            labels: {
+                align: 'right',
+                x: -3
+            },
+            title: {
+                text: 'Price'
+            },
+            height: '60%',
+            lineWidth: 2,
+            resize: {
+                enabled: true
+            }
+        }, {
+            labels: {
+                align: 'right',
+                x: -3
+            },
+            title: {
+                text: 'Volume'
+            },
+            top: '65%',
+            height: '35%',
+            offset: 0,
+            lineWidth: 2
+        }],
+
+        tooltip: {
+            split: true
+        },
+        series: [{
+                name: 'bnb total',
+                data: trade,
+                color: '#00FF00'
+            }
+        ]
+    }
+
 console.log(prices);
 console.log(trade);
 
             var chart = Highcharts.stockChart('container', options);
+            var chart2 = Highcharts.stockChart('container2', options2);
+            var chart3 = Highcharts.stockChart('container3', options3);
 </script>
 <%- msg %>

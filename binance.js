@@ -38,7 +38,10 @@ app.post('/', (req, res) => {
     doPost(req, res)
 
 })
+
 let total2 = 0;
+let bnbtotal = 0;
+let btctotal = 0;
 let totalbefore = 0;
 async function doPost(req, res) {
     console.log(total2)
@@ -48,6 +51,8 @@ async function doPost(req, res) {
         bals2[balances[b].asset] = parseFloat(balances[b].free) + parseFloat(balances[b].locked)
     }
     total2 = 0;
+    bnbtotal = 0;
+    btctotal = 0;
     //console.log(bals2)
     for (var bal in bals2) {
 
@@ -69,12 +74,16 @@ async function doPost(req, res) {
             }
         }
     }
+    console.log('woo ' + totalbefore / total2);
     if (totalbefore / total2 == 0 || (totalbefore / total2 < 2 &&  totalbefore / total2 > 0.5)){ 
-    
+    btctotal = total2 / btcs['BTC'];
+    bnbtotal = total2 / btcs['BNB']
     totalbefore = total2;
     if (req.query.name) {
         res.json({
-            total: total2
+            total: total2,
+            btc: btctotal,
+            bnb: bnbtotal
         });
 
     } else {
