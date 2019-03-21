@@ -58,6 +58,7 @@ let lala = 0;
 let precisions = {}
 let filters = {}
 async function doit() {
+    try {
     let exchange = (await client.exchangeInfo())
     for (var symbol in exchange.symbols) {
         precisions[exchange.symbols[symbol].symbol] = {
@@ -481,6 +482,9 @@ async function doit() {
         doit();
     }, 10000)
     count++;
+} catch(err){
+    console.log(err);
+}
 }
 setTimeout(function() {
     doit();
