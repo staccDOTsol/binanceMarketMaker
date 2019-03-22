@@ -43,6 +43,7 @@ let total2 = 0;
 let bnbtotal = 0;
 let btctotal = 0;
 let trades2 = []
+let tradeids = []
 let totalbefore = 0;
 async function getTrades(){
     let gos = {}
@@ -81,7 +82,11 @@ async function getTrades(){
           symbol: symbol,
         }))
         for (var t in trades){
-            trades2.push({'isBuyer': trades[t].isBuyer, 'time': trades[t].time})
+            if (!tradeids.includes(trades[t].id)){
+                tradeids.push(trades[t].id);
+            
+            trades2.push({'symbol': symbol, 'price': trades[t].price, 'isBuyer': trades[t].isBuyer, 'time': trades[t].time})
+        }
         }
     }
 }
@@ -116,7 +121,7 @@ async function doPost(req, res) {
     if (true){
 
     btctotal = total2 / btcs['BTC'];
-    bnbtotal = total2 / btcs['BNB']
+    bnbtotal = total2 / btcs['BNB'] / btcs['BTC']
     totalbefore = total2;
     if (req.query.name) {
         res.json({
@@ -308,7 +313,7 @@ async function cancelAll() {
 cancelAll();
 setInterval(function() {
     cancelAll();
-}, 60 * 1000 * 4)
+}, 60 * 1000 * 4 * 4)
 async function doit() {
     notabuys = []
     try {
