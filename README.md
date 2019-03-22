@@ -1,6 +1,9 @@
 # binanceMarketMaker
 
 
+If you prefer not to use the referral link, consider an Eth donation: 0x9f785ca281f00e2cf5ceec6bec02e0ef3f0eeedc a BTC donation: 358wCiMaP4jW3q2XBTA4MgXoX8uLY3zmAc a USDT donation: 35yrkFpGVZ46JjhUZ6iGxhtBgKg56ogjZo
+
+
 https://github.com/DunnCreativeSS/binanceMarketMaker
 
 
