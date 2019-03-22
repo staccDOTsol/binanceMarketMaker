@@ -227,9 +227,40 @@ x
                 chart2.series[0].setData(btc);
                 chart3.series[0].setData(bnb);
                 chart.series[0].setData(total);
+                console.log('trade')
+                let max = 0;
+                                for (var p in jsondata.trades2){
+if (jsondata.trades2[p].time > max){
+    max = jsondata.trades2[p].time
+}
+
+}
+                console.log(max )
+                for (var p in jsondata.trades2){
+                    if (jsondata.trades2[p].isBuyer){
+                    let new_line = {
+                        color: '#00FF00', // Red
+                        width: 2,
+                        value: parseFloat(jsondata.trades2[p].time)  // Position, you'll have to translate this to the values on your x axis
+                    }
+                    chart.xAxis[0].addPlotLine(new_line)
+                    chart2.xAxis[0].addPlotLine(new_line)
+                    chart3.xAxis[0].addPlotLine(new_line)
+                    }
+                    else {
+                    let new_line = {
+                        color: '#FF0000', // Red
+                        width: 2,
+                        value: parseFloat(jsondata.trades2[p].time)  // Position, you'll have to translate this to the values on your x axis
+                    }
+                    chart.xAxis[0].addPlotLine(new_line)
+                    chart2.xAxis[0].addPlotLine(new_line)
+                    chart3.xAxis[0].addPlotLine(new_line)
+                    }
+                }
                // chart = Highcharts.stockChart('container', options);
             });
-        }, 4000);
+        }, 5000);
     });
 
     var trade = [],
@@ -289,7 +320,9 @@ x
         title: {
             text: '<%- name %>'
         },
-
+        xAxis: [{min: 1553152242903,
+        plotLines: [{}]
+        }],
 
         yAxis: [{
             labels: {
@@ -367,6 +400,9 @@ x
         title: {
             text: '<%- name %>'
         },
+        xAxis: [{min: 1553152242903,
+        plotLines: [{}]
+        }],
 
 
         yAxis: [{
@@ -446,6 +482,9 @@ x
         title: {
             text: '<%- name %>'
         },
+        xAxis: [{min: 1553152242903,
+        plotLines: [{}]
+        }],
 
 
         yAxis: [{

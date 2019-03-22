@@ -7,7 +7,7 @@ const client = Binance({
 
 let targetSpread = 0.55;
 let targetVolDiv = 5;
-let targetVolMult = 200;
+let targetVolMult = 20;
 let maxOrder = 1500;
 
 const express = require('express');
@@ -38,13 +38,65 @@ app.post('/', (req, res) => {
     doPost(req, res)
 
 })
-
+let maxbal = 50;
 let total2 = 0;
 let bnbtotal = 0;
 let btctotal = 0;
+let trades2 = []
 let totalbefore = 0;
+async function getTrades(){
+    let gos = {}
+        let avgs = {}
+        for (var v in vols) {
+            avgs[v] = vols[v] / cs[v];
+        }
+        for (var a in avgs) {
+            if (a != 'USDS') {
+                for (var t in tickVols) {
+
+                    if (t.substring(t.length - 3, t.length) == a) {
+                        if (tickVols[t] > avgs[a] / targetVolDiv && tickVols[t] < avgs[a] * targetVolMult && spreads[t] > targetSpread) {
+                            if (gos[a] == undefined) {
+                                gos[a] = {}
+                            }
+                            gos[a][(t)] = tickVols[t];
+                        }
+                    } else if (t.substring(t.length - 4, t.length) == a) {
+                        if (tickVols[t] > avgs[a] / targetVolDiv && tickVols[t] < avgs[a] * targetVolMult && spreads[t] > targetSpread) {
+                            if (gos[a] == undefined) {
+                                gos[a] = {}
+                            }
+                            gos[a][(t)] = tickVols[t];
+                        }
+                    }
+
+                }
+            }
+        }
+        
+        for (var g in gos){
+
+            for (var symbol in gos[g]){
+        let trades = (await client.myTrades({
+          symbol: symbol,
+        }))
+        for (var t in trades){
+            trades2.push({'isBuyer': trades[t].isBuyer, 'time': trades[t].time})
+        }
+    }
+}
+}
+setTimeout(function(){
+
+getTrades();
+}, 10000)
+setInterval(function(){
+    getTrades()
+}, 60 * 1001)
 async function doPost(req, res) {
+    
     console.log(total2)
+    total2 = 0;
     let bals2 = {}
     balances = (await client.accountInfo()).balances
     for (var b in balances) {
@@ -54,28 +106,15 @@ async function doPost(req, res) {
     bnbtotal = 0;
     btctotal = 0;
     //console.log(bals2)
-    for (var bal in bals2) {
-
-        for (var base in bases) {
-            if (bal == bases[base]) {
-                if (btcs[bal] > 0.00001) {
-
-                    total2 += parseFloat(btcs[bal]) * parseFloat(bals2[bal])
-                }
-            }
-        }
-        if (total2 != 0) {}
-        for (b in btcs) {
-            if (b == bal) {
-                if (bals2[b] != 0 && !bases.includes(bal)) {
+    for (var bal in bals2){
                     // console.log(parseFloat(bals2[bal]))
-                    total2 += parseFloat(bals2[bal]) * parseFloat(btcs[bal] * btcs['BTC'])
-                }
-            }
-        }
+                    if (bals2[bal] > 0.00001){
+                    total2 += parseFloat(bals2[bal]) * parseFloat(btcs2[bal])
+               }
+    
     }
-    console.log('woo ' + totalbefore / total2);
-    if (totalbefore / total2 == 0 || (totalbefore / total2 < 2 &&  totalbefore / total2 > 0.5)){ 
+    if (true){
+
     btctotal = total2 / btcs['BTC'];
     bnbtotal = total2 / btcs['BNB']
     totalbefore = total2;
@@ -83,7 +122,8 @@ async function doPost(req, res) {
         res.json({
             total: total2,
             btc: btctotal,
-            bnb: bnbtotal
+            bnb: bnbtotal,
+            trades2: trades2
         });
 
     } else {
@@ -96,6 +136,7 @@ async function doPost(req, res) {
         })
     }
 }
+    total2 = 0;
 }
 let ticks = []
 let bases = []
@@ -104,6 +145,7 @@ let cs = {}
 let tickVols = {}
 let spreads = {}
 let btcs = {}
+let btcs2 = {}
 client.ws.allTickers(tickers => {
     for (var t in tickers) {
         for (var b in bases) {
@@ -113,7 +155,7 @@ client.ws.allTickers(tickers => {
         }
         if (tickers[t].symbol == 'BTCUSDT') {
             for (b in btcs) {
-                btcs[b] = btcs[b] * tickers[t].bestBid;
+                btcs2[b] = btcs[b] * tickers[t].bestBid;
             }
             btcs['BTC'] = parseFloat(tickers[t].bestBid);
         }
