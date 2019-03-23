@@ -9,6 +9,8 @@ let targetSpread = 0.55;
 let targetVolDiv = 5;
 let targetVolMult = 20;
 let maxOrder = 1500;
+let maxBetterVol = 1.5;
+
 
 const express = require('express');
 const app = express();
@@ -682,7 +684,7 @@ async function doit() {
                     console.log(aorders[symbol])
                     if (symbol != 'BNBUSDS' && !notabuys.includes(symbol) && ((hblesss[symbol] != hbless || lalesss[symbol] != laless) || ((las[symbol] != la && hbs[symbol] != hb) && (aorders[symbol] != la && borders[symbol] != hb)))) {
                         console.log(buyQtys[symbol] + ' ; ' + bsover);
-                        if (buyQtys[symbol] * 1.5 < bsover || buyQtys[symbol] == undefined) {
+                        if (buyQtys[symbol] * maxBetterVol < bsover || buyQtys[symbol] == undefined) {
                             hblesss[symbol] = hbless;
                             lalesss[symbol] = laless;
                             if (symbol.substring(symbol.length - 4, symbol.length) == g) {
@@ -785,20 +787,16 @@ async function doit() {
         }
 
         console.log(count * 1 + ' intervals')
-        setTimeout(function() {
-            doit();
-        }, 60000)
+       
         count++;
     } catch (err) {
-        setTimeout(function() {
-            doit();
-        }, 60000)
+       
         console.log(err);
     }
 }
-setTimeout(function() {
+setInterval(function() {
     doit();
-}, 15000)
+}, 60000)
 let bals = {}
 
 function countDecimalPlaces(number) {

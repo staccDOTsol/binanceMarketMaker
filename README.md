@@ -22,6 +22,9 @@ Where other market making bots fail (ie. BitMex, Deribit, other attempts I've ma
 You'll want to have about $20 per market pair it's looking to trade, in the base asset (BTC, BNB, ETH, etc...). It will look to trade more markets if the targetSpread, targetVolDiv, targetVolMult are higher. The more total funds in a particular base asset there are, the higher value the orders will have. 
 
 
+maxBetterVol is the multiplier of your order size that's permissible as a better amount of volume before re-entering the books, allowing people to use the bot simultaneously without constantly bettering each other's bids/asks. If you have 100 units at a price, then the order quantity * maxBetterVol can exist better than your price before it re-enters.
+
+
 If for whatever reason a market pair leaves the universe scope of considered pairs, it will continue selling that asset with the same sell logic (on the quoteAsset+BNB market), while pausing buying it.
 
 
@@ -47,7 +50,7 @@ To use:
 2. Place your Binance API key and secret in binance.js 
 
 
-3. Optionally change the targetSpread, targetVolDiv, targetVolMult, targetOrderSizeMult, maxOrder
+3. Optionally change the targetSpread, targetVolDiv, targetVolMult, targetOrderSizeMult, maxOrder, maxBetterVol
 
 
 4. Install NPM and Node
